@@ -1,0 +1,45 @@
+{% extends "isladeloscuernos/base.html" %}
+{% load static %}
+
+{% block content %}
+<h1>
+    Estadísticas: Mejor Pareja, El soltero más hot y la Soltera más popular
+</h1>
+<div class="vote-success displayed" id="vote-success">
+    <h2>
+        La pareja más trendry del momento
+    </h2>
+    <a href="/isladeloscuernos/parejas/" class="pastel-green btn-tinder btn vote-btn"> Vota tu mismo <i class="fas fa-vote-yea fa-lg"></i></a>
+    <div class="graph-wrapper">
+        <div id="votos"></div>
+        <div id="votos-quesitos"></div>
+    </div>
+</div>
+<div class="vote-success displayed" id="vote-success">
+    <h2>
+        The Hottest Soltero in the Village
+    </h2>
+    <a href="/isladeloscuernos/solteros/" class="pastel-green btn-tinder btn vote-btn"> Vota tu mismo <i class="fas fa-vote-yea fa-lg"></i></a>
+    <div class="graph-wrapper">
+        <div id="votos-solteros"></div>
+        <div id="votos-solteros-quesitos"></div>
+    </div>
+</div>
+<div class="vote-success displayed" id="vote-success">
+    <h2>
+        La capitana de las Animadoras
+    </h2>
+    <a href="/isladeloscuernos/solteras/" class="pastel-green btn-tinder btn vote-btn"> Vota tu mismo <i class="fas fa-vote-yea fa-lg"></i></a>
+    <div class="graph-wrapper">
+        <div id="votos-solteras"></div>
+        <div id="votos-solteras-quesitos"></div>
+    </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script src="https://cdnjs.cloudflare.com/ajax/libs/plotly.js/1.33.1/plotly.min.js"
+    integrity="sha512-V0j9LhrK9IMNdFYZqh+IqU4cjo7wdxyHNyH+L0td4HryBuZ7Oq6QxP2/CWr6TituX31+gv5PnolvERuTbz8UNA=="
+    crossorigin="anonymous"></script>
+<script src="{% static 'isladeloscuernos/js/plotstats.js' %}"></script>
+{% endblock %}

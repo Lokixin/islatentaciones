@@ -1,0 +1,64 @@
+{% extends "isladeloscuernos/base.html" %}
+{% load static %}
+{% block title %}
+Isla de los cuernos: Vota a tu Soltero Favorito
+{% endblock %}
+
+{% block content %}
+{% csrf_token %}
+{% if tipo == "solteros" %}
+<h1 id="solteros-h1">Solteros</h1>
+{% else %}
+<h1 id="solteros-h1">Solteras</h1>
+{% endif %}
+<div class="wrapper" id="wrapper">
+    {% for soltero in object_list %}
+    <div class="pareja-container" id="soltero-{{soltero.id}}">
+        <img src="{% static 'isladeloscuernos/img/'%}{{soltero.foto}}"
+            alt="foto de una soltero de la tercera edición de la isla de las tentaciones">
+        <div class="info">
+            <ul>
+                <li>
+                    <b>Nombre</b>: {{soltero.nombre}}
+                </li>
+                <li>
+                    <b>Edad</b>: {{soltero.edad}}
+                </li>
+                <li>
+                    <b>Ciudad</b>: {{soltero.ciudad}}
+                </li>
+                <li>
+                    <b>Profesión</b>: {{soltero.profesion}}
+                </li>
+
+            </ul>
+
+        </div>
+        {% if tipo == "solteros" %}
+        <button class="pastel-green btn-tinder btn vote-btn" id="{{soltero.id}}"> Votar a este soltero <i class="fas fa-heart fa-lg" style="color: #e5707e;"></i></button>
+        <button class="reject-btn pastel-red btn-tinder btn" id="{{soltero.id}}"> No me gusta, ver otro <i class="fas fa-thumbs-down fa-lg" style="color: #a3ddcb;"></i></button>
+        {% else %}
+        <button class="pastel-green btn-tinder btn vote-btn" id="{{soltero.id}}"> Votar a esta soltera <i class="fas fa-heart fa-lg" style="color: #e5707e;"></i></button>
+        <button class="reject-btn pastel-red btn-tinder btn" id="{{soltero.id}}"> No me gusta, ver otra <i class="fas fa-thumbs-down fa-lg" style="color: #a3ddcb;"></i></button>
+        {% endif %}
+    </div>
+    {% endfor %}
+</div>
+<div class="vote-success" id="vote-success">
+    <h3>
+        ¡Tu voto ha sido procesado correctamente!
+    </h3>
+    <div class="graph-wrapper">
+        <div id="votos"></div>
+        <div id="votos-quesitos"></div>
+    </div>
+</div>
+
+{% endblock %}
+
+{% block scripts %}
+<script src="https://cdnjs.cloudflare.com/ajax/libs/plotly.js/1.33.1/plotly.min.js"
+    integrity="sha512-V0j9LhrK9IMNdFYZqh+IqU4cjo7wdxyHNyH+L0td4HryBuZ7Oq6QxP2/CWr6TituX31+gv5PnolvERuTbz8UNA=="
+    crossorigin="anonymous"></script>
+<script src="{% static 'isladeloscuernos/js/soltero.js' %}"></script>
+{% endblock %}

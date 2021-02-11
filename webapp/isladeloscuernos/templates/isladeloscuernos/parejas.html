@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="es-ES">
+
+<head>
+    {% load static %}
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-BmbxuPwQa2lc/FVzBcNJ7UAyJxM6wuqIj61tLrc4wSX0szH/Ev+nYRRuWlolflfl" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-b5kHyXgcpbZJO/tY9Ul7kGkf1S0CWuKcCD38l8YkeH8z8QjE0GmW1gYU5S9FOnJ0"
+        crossorigin="anonymous"></script>
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Montserrat:wght@100;200;300;400;500;600;700;800;900&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css"
+        integrity="sha512-HK5fgLBL+xu6dm/Ii3z4xhlSUyZgTT9tuc/hSrtw6uzJOvgRr2a9jyxxT1ely+B+xFAmJKVSTbpM/CuL7qxO8w=="
+        crossorigin="anonymous" />
+    <link rel="stylesheet" href="{% static 'isladeloscuernos/css/style.css' %}">
+
+    <title>Parejas de la Isla de las Tentaciones 3</title>
+</head>
+
+<body>
+    <header>
+        <nav class="navbar navbar-expand-lg navbar-light bg-light">
+            <div class="container-fluid">
+                <a class="navbar-brand" href="/isladeloscuernos/">Isla de los Cuernos</a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                    data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
+                    aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                    <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                        <li class="nav-item">
+                            <a class="nav-link active" aria-current="page" href="/isladeloscuernos/parejas/">Parejas Favoritas</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="/isladeloscuernos/solteros/">Vota a tu Soltero</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="/isladeloscuernos/solteras/">Vota a tu Soltera</a>
+                        </li>
+                    </ul>
+                    <form class="d-flex">
+                        <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+                        <button class="btn btn-outline-success" type="submit">Search</button>
+                    </form>
+                </div>
+            </div>
+        </nav>
+    </header>
+    <main>
+        <h1>Vota a tu pareja Favorita</h1>
+        {% csrf_token %}
+        <div class="wrapper" id="wrapper">
+            {% for pareja in object_list %}
+            <div class="pareja-container">
+                <img src="{% static 'isladeloscuernos/img/'%}{{pareja.foto}}"
+                    alt="foto de una pareja de la tercera edición de la isla de las tentaciones">
+                <div class="info">
+                    <ul>
+                        <li>
+                            Preja: {{pareja.novio}} y {{pareja.novia}}
+                        </li>
+                        <li>
+                            Años de relación: {{pareja.tiempo}}
+                        </li>
+                    </ul>
+
+                </div>
+                <button class="votar-btn pastel-green btn-tinder btn" id="{{pareja.id}}"> Votar a esta pareja <i class="fas fa-heart fa-lg" style="color: #e5707e;"></i></button>
+            </div>
+            {% empty %}
+            <p>
+                No hay parejas registradas todavía
+            </p>
+            {% endfor %}
+        </div>
+        <div class="vote-success" id="vote-success">
+            <h3>
+                ¡Tu voto ha sido procesado correctamente!
+            </h3>
+            <div class="graph-wrapper">
+                <div id="votos"></div>
+                <div id="votos-quesitos"></div>
+            </div>
+
+        </div>
+    </main>
+</body>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/plotly.js/1.33.1/plotly.min.js"
+    integrity="sha512-V0j9LhrK9IMNdFYZqh+IqU4cjo7wdxyHNyH+L0td4HryBuZ7Oq6QxP2/CWr6TituX31+gv5PnolvERuTbz8UNA=="
+    crossorigin="anonymous"></script>
+<script src="{% static 'isladeloscuernos/js/vote.js' %}"></script>
+
+</html>
